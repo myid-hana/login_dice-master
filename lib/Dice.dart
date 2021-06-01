@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Dice extends StatefulWidget {
   @override
@@ -45,6 +46,7 @@ class _DiceState extends State<Dice> {
                       leftDice = Random().nextInt(6) + 1;
                       rightDice = Random().nextInt(6) + 1;
                     });
+                    showToast('left: $leftDice, right: $rightDice');
                   },
                   child: Text(
                     '주사위 굴리기',
@@ -61,4 +63,12 @@ class _DiceState extends State<Dice> {
       ),
     );
   }
+}
+
+void showToast(String message) {
+  Fluttertoast.showToast(msg: message,
+  backgroundColor: Colors.black,
+  toastLength: Toast.LENGTH_SHORT,
+  gravity: ToastGravity.BOTTOM
+  );
 }
