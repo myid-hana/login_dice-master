@@ -37,81 +37,87 @@ class _LogInState extends State<LogIn> {
         ],
       ),
       body: Builder(builder: (context) {
-        return SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(padding: EdgeInsets.only(top: 50)),
-              Center(
-                child: Image(
-                  image: AssetImage('image/chef.gif'),
-                  width: 170,
-                  height: 190,
-                ),
-              ),
-              Form(
-                  child: Theme(
-                data: ThemeData(
-                    primaryColor: Colors.teal, //input underline color
-                    inputDecorationTheme: InputDecorationTheme(
-                        //input label style
-                        labelStyle:
-                            TextStyle(color: Colors.teal, fontSize: 15))),
-                child: Container(
-                  padding: EdgeInsets.all(
-                      40), //container 는 하나의 child 밖에 가질 수 없으므로 column 을 불러온다.
-                  child: Column(
-                    children: [
-                      TextField(
-                        controller: controller, //컨트롤러 설정해주기.
-                        decoration: InputDecoration(
-                            labelText: 'Enter "dice"' //input label
-                            ),
-                        keyboardType: TextInputType.emailAddress, //키보드 타입
-                      ),
-                      TextField(
-                        controller: controller2,
-                        decoration: InputDecoration(
-                            labelText: 'Enter Password' //input label
-                            ),
-                        keyboardType: TextInputType.text, //키보드 타입
-                        obscureText: true,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      ButtonTheme(
-                        minWidth: 100,
-                        height: 50,
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.green),
-                          ),
-                          child: Text(
-                            'login',
-                          ),
-                          onPressed: () {
-                            //조건에 따라 페이지 이동
-                            if (controller.text == 'dice' &&
-                                controller2.text == '1234') {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          Dice()));
-                            } else if (controller.text != 'dice') {
-                              showSnackBar2(context);
-                            } else if (controller2.text != '1234') {
-                              showSnackBar3(context);
-                            }
-                          },
-                        ),
-                      )
-                    ],
+        return GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          }, //전체 포커스를 해제해서 노출되어 있는 키보드를 다시 아래로 내림.
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(padding: EdgeInsets.only(top: 50)),
+                Center(
+                  child: Image(
+                    image: AssetImage('image/chef.gif'),
+                    width: 170,
+                    height: 190,
                   ),
                 ),
-              ))
-            ],
+                Form(
+                    child: Theme(
+                  data: ThemeData(
+                      primaryColor: Colors.teal, //input underline color
+                      inputDecorationTheme: InputDecorationTheme(
+                          //input label style
+                          labelStyle:
+                              TextStyle(color: Colors.teal, fontSize: 15))),
+                  child: Container(
+                    padding: EdgeInsets.all(
+                        40), //container 는 하나의 child 밖에 가질 수 없으므로 column 을 불러온다.
+                    child: Column(
+                      children: [
+                        TextField(
+                          autofocus: true,
+                          controller: controller, //컨트롤러 설정해주기.
+                          decoration: InputDecoration(
+                              labelText: 'Enter "dice"' //input label
+                              ),
+                          keyboardType: TextInputType.emailAddress, //키보드 타입
+                        ),
+                        TextField(
+                          controller: controller2,
+                          decoration: InputDecoration(
+                              labelText: 'Enter Password' //input label
+                              ),
+                          keyboardType: TextInputType.text, //키보드 타입
+                          obscureText: true,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        ButtonTheme(
+                          minWidth: 100,
+                          height: 50,
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.green),
+                            ),
+                            child: Text(
+                              'login',
+                            ),
+                            onPressed: () {
+                              //조건에 따라 페이지 이동
+                              if (controller.text == 'dice' &&
+                                  controller2.text == '1234') {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            Dice()));
+                              } else if (controller.text != 'dice') {
+                                showSnackBar2(context);
+                              } else if (controller2.text != '1234') {
+                                showSnackBar3(context);
+                              }
+                            },
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ))
+              ],
+            ),
           ),
         );
       }),
