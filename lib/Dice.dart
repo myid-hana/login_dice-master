@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
-class Dice extends StatelessWidget {
+class Dice extends StatefulWidget {
+  @override
+  State<Dice> createState() => _DiceState();
+}
+
+class _DiceState extends State<Dice> {
+
+  int leftDice = 1;
+  int rightDice = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,10 +29,10 @@ class Dice extends StatelessWidget {
               child: Row(
                 //mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(child: Image.asset('image/dice1.png')),
+                  Expanded(child: Image.asset('image/dice$leftDice.png')),
                   //Expanded: row에서는 가로로, column 에서는 세로로 이미지를 늘려줌.
                   SizedBox(width: 20),
-                  Expanded(child: Image.asset('image/dice2.png')),
+                  Expanded(child: Image.asset('image/dice$rightDice.png')),
                 ],
               ),
             ),
@@ -30,7 +40,12 @@ class Dice extends StatelessWidget {
               minWidth: 100.0,
               height: 60.0,
               child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      leftDice = Random().nextInt(6) + 1;
+                      rightDice = Random().nextInt(6) + 1;
+                    });
+                  },
                   child: Text(
                     '주사위 굴리기',
                     style: TextStyle(fontSize: 20),
